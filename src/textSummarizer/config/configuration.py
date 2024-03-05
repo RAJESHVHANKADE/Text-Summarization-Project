@@ -1,6 +1,6 @@
 from textSummarizer.logging import logger
 from textSummarizer.utils.common import read_yaml, create_directories
-from textSummarizer.entity import DataIngestionConfig, DataValidationConfig
+from textSummarizer.entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
 from pathlib import Path
 import yaml
 
@@ -39,3 +39,16 @@ class ConfigurationManager:
         )
 
         return data_validation_config
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.get('data_transformation', {})  # Use .get() to handle missing keys
+
+        create_directories([config.get('root_dir', '')])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=config.get('root_dir', ''),
+            data_path=config.get('data_path', ''),
+            tokenizer_name=config.get('tokenizer_name', '')
+        )
+
+        return data_transformation_config
