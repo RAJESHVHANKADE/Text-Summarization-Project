@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
+CONFIG_FILE_PATH = Path("config/config.yaml") 
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
